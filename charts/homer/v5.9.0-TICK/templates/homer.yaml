@@ -238,13 +238,13 @@ items:
             value: info
           - name: HEPLIFYSERVER_LOGSTD
             value: "true"
+          - name: HEPLIFYSERVER_DEDUP
+            value: "true"
           - name: HEPLIFYSERVER_PROMADDR
             value: 0.0.0.0:9096
           - name: HEPLIFYSERVER_PROMTARGETIP
           - name: HEPLIFYSERVER_PROMTARGETNAME
-          - name: HEPLIFYSERVER_DEDUP
-            value: "true"
-          image: negbie/heplify-server:latest
+          image: sipcapture/heplify-server:latest
           name: heplify-server
           ports:
           - containerPort: 9060
