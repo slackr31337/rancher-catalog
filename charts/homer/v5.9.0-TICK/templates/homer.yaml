@@ -1,4 +1,18 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: homer-data-mysql
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 310Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/opt/homer/homer-data-mysql"
+apiVersion: v1
 items:
 - apiVersion: v1
   kind: Service
@@ -193,6 +207,10 @@ items:
           image: mariadb:latest
           name: db
           resources: {}
+      volumes:
+      - name: homer-data-mysql
+        persistentVolumeClaim:
+          claimName: homer-data-mysql
   status: {}
 - apiVersion: extensions/v1beta1
   kind: Deployment
@@ -235,6 +253,8 @@ items:
             value: 0.0.0.0:9096
           - name: HEPLIFYSERVER_PROMTARGETIP
           - name: HEPLIFYSERVER_PROMTARGETNAME
+          - name: HEPLIFYSERVER_DEDUP
+            value: true
           image: negbie/heplify-server:latest
           name: heplify-server
           ports:
@@ -244,6 +264,9 @@ items:
           - containerPort: 9060
             hostPort: 9060
             protocol: TCP
+          - containerPort: 9060
+            hostPort: 9064
+            protocol: UDP
           resources: {}
   status: {}
 - apiVersion: extensions/v1beta1
