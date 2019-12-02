@@ -235,7 +235,7 @@ items:
             value: 0.0.0.0:9096
           - name: HEPLIFYSERVER_PROMTARGETIP
           - name: HEPLIFYSERVER_PROMTARGETNAME
-          image: negbie/heplify-server:latest
+          image: sipcapture/heplify-server:latest
           name: heplify-server
           ports:
           - containerPort: 9060
