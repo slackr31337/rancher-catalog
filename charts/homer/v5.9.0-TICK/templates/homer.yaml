@@ -193,13 +193,6 @@ items:
           image: mariadb:latest
           name: db
           resources: {}
-          volumeMounts:
-          - mountPath: /var/lib/mysql
-            name: homer-data-mysql
-        volumes:
-        - name: homer-data-mysql
-          persistentVolumeClaim:
-            claimName: homer-data-mysql
   status: {}
 - apiVersion: extensions/v1beta1
   kind: Deployment
@@ -238,13 +231,11 @@ items:
             value: info
           - name: HEPLIFYSERVER_LOGSTD
             value: "true"
-          - name: HEPLIFYSERVER_DEDUP
-            value: "true"
           - name: HEPLIFYSERVER_PROMADDR
             value: 0.0.0.0:9096
           - name: HEPLIFYSERVER_PROMTARGETIP
           - name: HEPLIFYSERVER_PROMTARGETNAME
-          image: sipcapture/heplify-server:latest
+          image: negbie/heplify-server:latest
           name: heplify-server
           ports:
           - containerPort: 9060
